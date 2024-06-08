@@ -24,4 +24,12 @@ public class ServiceUsuario {
             throw new RuntimeException(e);
         }
     }
+
+    public Usuario obtenerUsuarioPorId(int id) {
+        try {
+            return repositorio.obtenerPorId(id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

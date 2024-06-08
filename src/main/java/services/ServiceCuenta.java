@@ -5,22 +5,22 @@ import models.Cuenta;
 
 public class ServiceCuenta {
 
-    public static boolean depositar(Cuenta cuenta, double monto) {
+    public static Cuenta depositar(Cuenta cuenta, double monto) {
         if (monto > 0) {
             cuenta.setSaldo(cuenta.getSaldo() + monto);
-            return true;
+            return cuenta;
         } else {
-            return false;
+            return cuenta;
         }
     }
 
-    public static boolean retirar(Cuenta cuenta, double monto) {
+    public static Cuenta retirar(Cuenta cuenta, double monto) {
         if (cuenta.getSaldo() >= monto) {
             cuenta.setSaldo(cuenta.getSaldo() - monto);
-            return true;
+            return cuenta;
         } else {
             System.out.println("Fondos insuficientes.");
-            return false;
+            return cuenta;
         }
     }
 }

@@ -1,4 +1,5 @@
 <%@page import="models.*"%>
+<%@page import="services.ServiceCuenta"%>
 <% Usuario usuario = (Usuario) request.getAttribute("usuario"); %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,12 +15,20 @@
 <div class="container mt-5 col-4 bg-secondary text-center text-white rounded shadow">
     <div class="row justify-content-center">
         <div class="col-6 mt-2 mb-2">
-
-
             <h1>ALKEWALLET</h1>
-
             <h3>Bienvenido <%=usuario.getNombre() %></h3>
             <h3>Tu balance es de $<%=usuario.getBalance() %></h3>
+
+            <form action="CuentaServlet" method="post">
+                <div class="mb-3">
+                    <label for="monto" class="form-label">Monto:</label>
+                    <input type="number" class="form-control" id="monto" name="monto" required>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary" name="action" value="depositar">Depositar</button>
+                    <button type="submit" class="btn btn-danger" name="action" value="retirar">Retirar</button>
+                </div>
+            </form>
 
         </div>
     </div>

@@ -2,12 +2,15 @@ package dao;
 
 import models.Usuario;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioRepositorio extends Dao implements Repositorio<Usuario>{
+    private Connection connection;
 
     public UsuarioRepositorio() {
         this.connectionDb();
@@ -25,7 +28,9 @@ public class UsuarioRepositorio extends Dao implements Repositorio<Usuario>{
         Usuario usuario = new Usuario();
         usuario.setId(resultSet.getInt("id"));
         usuario.setNombre(resultSet.getString("nombre"));
+        usuario.setEmail(resultSet.getString("email"));
         usuario.setPassword(resultSet.getString("password"));
+        usuario.setBalance(resultSet.getInt("balance"));
 
         return usuario;
 
@@ -61,5 +66,22 @@ public class UsuarioRepositorio extends Dao implements Repositorio<Usuario>{
     @Override
     public int eliminar(int id) throws SQLException {
         return 0;
+    }
+
+    public Usuario obtenerPorId(int id) throws SQLException {
+        String query = "SELECT * FROM usuarios WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    String nombre = resultSet.getString("nombre");
+                    String email = resultSet.getString("email");
+                    // Crear y devolver el objeto Usuario
+                    return new Usuario();
+                } else {
+                    return null;
+                }
+            }
+        }
     }
 }
