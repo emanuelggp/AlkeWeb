@@ -1,5 +1,6 @@
 package services;
 
+import dao.Repositorio;
 import dao.UsuarioRepositorio;
 import models.Usuario;
 
@@ -32,4 +33,14 @@ public class ServiceUsuario {
             throw new RuntimeException(e);
         }
     }
+
+    public boolean actualizarUsuario(Usuario usuario) {
+        try {
+            int filasAfectadas = repositorio.actualizar(usuario);
+            return filasAfectadas > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

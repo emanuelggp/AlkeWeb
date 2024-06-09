@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioRepositorio extends Dao implements Repositorio<Usuario>{
-    private Connection connection;
+    private static Connection connection;
 
     public UsuarioRepositorio() {
         this.connectionDb();
@@ -60,8 +60,17 @@ public class UsuarioRepositorio extends Dao implements Repositorio<Usuario>{
 
     @Override
     public int actualizar(Usuario usuario) throws SQLException {
-        return 0;
+        String query = "UPDATE usuario SET nombre=?, email=?, password=?, balance=? WHERE id=?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, usuario.getNombre());
+            statement.setString(2, usuario.getEmail());
+            statement.setString(3, usuario.getPassword());
+            statement.setDouble(4, usuario.getBalance());
+            statement.setInt(5, usuario.getId());
+            return statement.executeUpdate();
+        }
     }
+
 
     @Override
     public int eliminar(int id) throws SQLException {
@@ -69,7 +78,7 @@ public class UsuarioRepositorio extends Dao implements Repositorio<Usuario>{
     }
 
     public Usuario obtenerPorId(int id) throws SQLException {
-        String query = "SELECT * FROM usuarios WHERE id = ?";
+        String query = "SELECT * FROM usuario WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {

@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Home</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
@@ -28,7 +28,12 @@
                     <button type="submit" class="btn btn-primary" name="action" value="depositar">Depositar</button>
                     <button type="submit" class="btn btn-danger" name="action" value="retirar">Retirar</button>
                 </div>
+
             </form>
+
+            <div class="mb-3">
+            <button type="submit" action="/logout" class="btn btn-dark" name="logout" value="logout">Salir</button>
+            </div>
 
         </div>
     </div>
