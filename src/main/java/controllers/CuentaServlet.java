@@ -10,12 +10,18 @@ import models.Usuario;
 import services.ServiceCuenta;
 
 import java.io.IOException;
-@WebServlet("/CuentaServlet")
+@WebServlet("/home")
 public class CuentaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         Usuario usuario = (Usuario) req.getSession().getAttribute("usuario");
+
+        if (usuario == null) {
+            // Redirige al usuario a la página de inicio de sesión
+            resp.sendRedirect("/login");
+            return;
+        }
 
         Cuenta cuenta = new Cuenta(usuario.getId(), usuario.getBalance());
 
@@ -28,11 +34,10 @@ public class CuentaServlet extends HttpServlet {
 
         Usuario usuario = (Usuario) req.getSession().getAttribute("usuario");
         if (usuario == null) {
-            // Si el usuario no está en la sesión, redirigir a la página de inicio de sesión
+            // Redirige al usuario a la página de inicio de sesión
             resp.sendRedirect("/login");
             return;
         }
-
 
         double monto = Double.parseDouble(req.getParameter("monto"));
         String accion = req.getParameter("action");
@@ -43,12 +48,12 @@ public class CuentaServlet extends HttpServlet {
             cuenta = ServiceCuenta.depositar(cuenta, monto);
             usuario.setBalance((int) cuenta.getSaldo());
             req.getSession().setAttribute("usuario", usuario);
-            resp.sendRedirect("/home");
+            resp.sendRedirect("/AlkeWeb/home");
         } else if (accion.equals("retirar")) {
             cuenta = ServiceCuenta.retirar(cuenta, monto);
             usuario.setBalance((int) cuenta.getSaldo());
             req.getSession().setAttribute("usuario", usuario);
-            resp.sendRedirect("/home");
+            resp.sendRedirect("/AlkeWeb/home");
         }
     }
 }

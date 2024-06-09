@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
             if(usuario.getNombre().equals(nombre)) {
                 if(usuario.getPassword().equals(password)) {
                     System.out.println("Login exitoso!!! " + usuario);
-                    req.setAttribute("usuario", usuario);
+                    req.getSession().setAttribute("usuario", usuario);
                     getServletContext().getRequestDispatcher("/home.jsp").forward(req, resp);
                 }
             }

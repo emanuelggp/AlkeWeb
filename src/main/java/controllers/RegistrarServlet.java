@@ -21,12 +21,14 @@ public class RegistrarServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String nombre = req.getParameter("nombre");
+        String email = req.getParameter("email");
         String password = req.getParameter("password");
 
 
         ServiceUsuario service = new ServiceUsuario();
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);
+        usuario.setEmail(email);
         usuario.setPassword(password);
         service.registrarUsuario(usuario);
     }

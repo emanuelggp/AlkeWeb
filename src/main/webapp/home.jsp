@@ -16,10 +16,10 @@
     <div class="row justify-content-center">
         <div class="col-6 mt-2 mb-2">
             <h1>ALKEWALLET</h1>
-            <h3>Bienvenido <%=usuario.getNombre() %></h3>
-            <h3>Tu balance es de $<%=usuario.getBalance() %></h3>
+            <h3>Bienvenido <%=((Usuario)session.getAttribute("usuario")).getNombre() %></h3>
+            <h3>Tu balance es de $<%=((Usuario)session.getAttribute("usuario")).getBalance() %></h3>
 
-            <form action="CuentaServlet" method="post">
+            <form action="/AlkeWeb/home" method="post">
                 <div class="mb-3">
                     <label for="monto" class="form-label">Monto:</label>
                     <input type="number" class="form-control" id="monto" name="monto" required>
